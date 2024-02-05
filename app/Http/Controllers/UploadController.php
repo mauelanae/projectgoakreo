@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Storage;
 class UploadController extends Controller
 {
     public function uploaddokumen(){
-        return view ("upload.createupload");
+        $data = Upload::all();
+        return view ("upload.createupload",compact("data"));
     }
 
     public function table(){
@@ -42,5 +43,20 @@ class UploadController extends Controller
         $data = Upload::findOrFail($id);
         $path = storage_path('app/' . $data->path);
         return response()->download($path);
+    }
+
+    public function delete($id)
+    {
+        // Cari data berdasarkan ID
+        $data = Upload::find($id);
+
+        if (!$data) {
+            return redirect()->back()->with('massage', 'Data tidak ditemukan.');
+        }
+
+        // Hapus data
+        $data->delete();
+
+        return redirect()->back()->with('massage', 'Data berhasil dihapus!');
     }
 }

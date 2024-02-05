@@ -81,6 +81,40 @@
                 type="submit">Unggah</button>
         </div>
     </form>
+
+    <h1 class="mt-8 text-2xl font-bold text-center">Rekap Goakreo </h1>
+    <div class="flex overflow-auto p-4 pt-0"">
+        <table class="text-sm text-black w-full mt-6">
+            <thead class="text-xs text-black bg-gray-300">
+                <th scope="col" class="px-2 py-4">Nama</th>
+                <th scope="col" class="px-2 py-4">Dokumen</th>
+                <th scope="col" class="px-2 py-4">Download</th>
+            </thead>
+            <tbody>
+                @foreach ($data as $item)
+                    <tr class="bg-white border-b">
+                        <th class="px-6 py-4">{{ $item['name'] }}</th>
+                        <th class="px-6 py-4">{{ $item['filename'] }}</th>
+                        <td class="px-6 py-4">
+                            <div class="flex gap-4">
+                                <a href="{{ route('download', ['id' => $item['id']]) }}"
+                                    class="py-2 px-4 bg-utama text-white rounded-md">Download</a>
+                                <form action="{{ route('deletedata', ['id' => $item->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"
+                                        class="py-2 px-4 bg-utama text-white rounded-md">Hapus
+                                        Data</button>
+                                </form>
+                            </div>
+                        </td>
+                        </th>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </body>
 @include('partial.footer')
 

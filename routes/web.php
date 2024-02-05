@@ -98,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/tableupload',[UploadController::class,'table'])->name('tableupload')->middleware('userAkses:user');
     Route::get('/download/{id}',[UploadController::class,'download'])->name('download')->middleware('userAkses:user');
     Route::post('upload/store',[UploadController::class,'upload'])->name('upload')->middleware('userAkses:admin');
+    Route::DELETE('/delete/{id}',[UploadController::class,'delete'])->name('deletedata')->middleware('userAkses:user');
     
 
     //Middleware User
